@@ -19,12 +19,12 @@
         }
     </style>
 </head>
-<body x-data="{ open: false, showModal: false }" x-bind:class="{ 'overflow-hidden': showModal }" style="background-color: #FAFBFB; min-height: 100vh;">
+<body x-data="{ open: false, showModal: false, authenticationModal: false}" x-bind:class="{ 'overflow-hidden': showModal || authenticationModal }" style="background-color: #FAFBFB; min-height: 100vh;">
 
 <nav class="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200 shadow-lg">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="/logo1.png" class="h-6" alt="Musewords Logo">
+            <img src="./logo1.png" class="h-6" alt="Musewords Logo">
         </a>
         <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <button type="button" class="button1 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">LOGOUT</button>
@@ -38,7 +38,7 @@
         <div x-show="open" class="items-center justify-between w-full md:hidden" id="navbar-sticky">
             <ul class="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg bg-white space-y-2">
                 <li>
-                    <a href="/index.html" class="block py-1 px-1 border-b text-gray-500 rounded">Home</a>
+                    <a href="./home.php" class="block py-1 px-1 border-b text-gray-500 rounded">Home</a>
                 </li>
                 <li>
                     
@@ -68,10 +68,10 @@
                 <!-- Modal body -->
                 <div class="py-5 md:p-5 space-y-4">
                     <div class="max-w-2xl mx-auto px-2">
-                      <form class="mb-6">
+                      <form class="mb-6" action="./write.php" method="POST">
                           <div class="py-2 px-4 mb-2 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                               <label for="comment" class="sr-only">Your comment</label>
-                              <textarea id="comment" rows="3"
+                              <textarea id="comment" name="comment" rows="3"
                                   class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
                                   placeholder="Type here..." required></textarea>
                           </div>
@@ -95,7 +95,7 @@
         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
             <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
                 <li>
-                    <a href="/index.html" class="flex flex-col items-center text-xs py-2 px-3 text-gray-700 rounded md:px-4 md:bg-transparent md:text-gray-500 md:hover:text-gray-900 md:p-0">
+                    <a href="./home.php" class="flex flex-col items-center text-xs py-2 px-3 text-gray-700 rounded md:px-4 md:bg-transparent md:text-gray-500 md:hover:text-gray-900 md:p-0">
                         <svg fill="#3E3E3F" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewBox="0 0 495.398 495.398" xml:space="preserve">
 
                         <g id="SVGRepo_bgCarrier" stroke-width="0"/>
@@ -145,10 +145,10 @@
                 <!-- Modal body -->
                 <div class="py-5 md:p-5 space-y-4">
                     <div class="max-w-2xl mx-auto px-2">
-                      <form class="mb-6">
+                      <form class="mb-6" action="./write.php" method="POST">
                           <div class="py-2 px-4 mb-2 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                               <label for="comment" class="sr-only">Your comment</label>
-                              <textarea id="comment" rows="5"
+                              <textarea id="comment" name="comment" rows="5"
                                   class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none"
                                   placeholder="Type here..." required></textarea>
                           </div>
