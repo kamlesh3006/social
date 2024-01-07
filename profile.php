@@ -1,3 +1,16 @@
+<?php
+    include_once("db.php");
+
+    session_start();
+
+    if (!isset($_SESSION["user_id"])) {
+        header("Location: login.php");
+        exit();
+    } else{
+        $username = $_SESSION["name"];
+        $user_id = $_SESSION["user_id"];
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +40,7 @@
             <img src="./logo1.png" class="h-6" alt="Musewords Logo">
         </a>
         <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <button type="button" class="button1 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">LOGOUT</button>
+        <a href="logout.php" class="button1 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">LOGOUT</a>
             <button @click="open = !open" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-sticky" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
                 <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
@@ -187,9 +200,9 @@
 <div class=" md:mt-20 sm:p-12">
 	<div class="flex flex-col space-y-4 md:space-y-0 md:space-x-6 md:flex-row">
 		<div class="flex flex-col">
-			<h4 class="text-lg font-semibold text-center md:text-left">Kamlesh Khatod</h4>
-			<p class="text-justify ">Hey Kamlesh,
-                Musewords is designed for users to share inspirational, thought-provoking quotes without revealing their identity. We're committed to fostering a positive and respectful environment where users can freely express themselves. However, with this freedom comes responsibility.</p>
+			<h4 class="text-lg font-semibold text-center md:text-left"><?php echo $username; ?></h4>
+			<p class="text-justify "><?php echo "Hey ".$username.",
+                Musewords is designed for users to share inspirational, thought-provoking quotes without revealing their identity. We're committed to fostering a positive and respectful environment where users can freely express themselves. However, with this freedom comes responsibility."?></p>
 		</div>
 	</div>
 	<div class="flex pt-4 space-x-4 align-center">
@@ -219,18 +232,14 @@
                 <!-- Modal body -->
                 <div class="p-4 md:p-5">
     
-                  <form class="space-y-4" action="#">
-                      <div>
-                          <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your username</label>
-                          <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="kamlesh3006">
-                      </div>
+                  <form class="space-y-4" action="update.php" method="POST">
                       <div>
                           <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Change Password</label>
                           <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                       </div>
                       <div>
                         <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm Password</label>
-                        <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                        <input type="password" name="Cpassword" id="Cpassword" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                     </div>
                       <button @click="authenticationModal = false" type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
                   </form>
@@ -251,174 +260,74 @@
             <p class="text-gray-400">|</p>
             <button>Saved Posts</button>
         </article>
-        <article class="p-6 my-5 border shadow-lg text-base bg-white rounded-lg">
+        <?php 
+        $getQuotesQuery = "SELECT post_id, quote, date, user_id FROM posts ORDER BY datetime DESC";
+        $result = mysqli_query($conn, $getQuotesQuery);
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $post_id = $row["post_id"];
+                $quote = $row["quote"];
+                $date = $row["date"];
+                $postuser = $row["user_id"];
+                if ($user_id == $postuser) {
+                
+        echo '<article class="p-6 mt-10 lg:mt-5 border shadow-lg text-base bg-white rounded-lg">
             <footer class="flex justify-between items-center mb-2">
                 <div class="flex items-center">
-                    <p class="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold">Michael Gough</p>
+                    <p class="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold"> '.$username.'</p>
                     <p class="text-sm text-gray-600"><time pubdate datetime="2022-02-08"
-                            title="February 8th, 2022">Feb. 8, 2022</time></p>
-                </div>
-                <button type="button"
+                            title="February 8th, 2022">'.$date.'</time></p>
+                </div>';
+                
+        echo '
+                <a href="like.php" type="button"
                     class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
-                    </svg>
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 9V14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12.0001 21.41H5.94005C2.47005 21.41 1.02005 18.93 2.70005 15.9L5.82006 10.28L8.76006 5.00003C10.5401 1.79003 13.4601 1.79003 15.2401 5.00003L18.1801 10.29L21.3001 15.91C22.9801 18.94 21.5201 21.42 18.0601 21.42H12.0001V21.41Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M11.9945 17H12.0035" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
                     Report
-                </button>
+                </a>
             </footer>
-            <p class="text-gray-500">Very straight-to-point article. Really worth time reading. Thank you! But tools are just the
-                instruments for the UX designers. The knowledge of the design tools are as important as the
-                creation of the design strategy.</p>
+            <p class="text-gray-500">'.$quote.'</p>
             <div class="flex items-center mt-4 space-x-4">
+                </a>';
+                echo '
+                <a href="unlike.php" type="button"
+                    class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<g id="SVGRepo_bgCarrier" stroke-width="0"/>
+
+<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+
+<g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+
+</svg>
+<p class="ml-1">Like</p>
+                </a>';
+            echo '
                 <button type="button"
                     class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
-                    </svg>
-                    Like
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M20.5 3.5L3.5 9L10 12L17 7L12 14L15 20.5L20.5 3.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+<p class="ml-1">Share</p>
                 </button>
                 <button type="button"
                     class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
-                    </svg>
-                    Share
-                </button>
-                <button type="button"
-                    class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
-                    </svg>
+                    <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M6.75 6L7.5 5.25H16.5L17.25 6V19.3162L12 16.2051L6.75 19.3162V6ZM8.25 6.75V16.6838L12 14.4615L15.75 16.6838V6.75H8.25Z" fill="currentColor"/>
+</svg>
                     Save
                 </button>
             </div>
-        </article>
-        <article class="p-6 my-5 border shadow-lg text-base bg-white rounded-lg">
-            <footer class="flex justify-between items-center mb-2">
-                <div class="flex items-center">
-                    <p class="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold">Michael Gough</p>
-                    <p class="text-sm text-gray-600"><time pubdate datetime="2022-02-08"
-                            title="February 8th, 2022">Feb. 8, 2022</time></p>
-                </div>
-                <button type="button"
-                    class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
-                    </svg>
-                    Report
-                </button>
-            </footer>
-            <p class="text-gray-500">Very straight-to-point article. Really worth time reading. Thank you! But tools are just the
-                instruments for the UX designers. The knowledge of the design tools are as important as the
-                creation of the design strategy.</p>
-            <div class="flex items-center mt-4 space-x-4">
-                <button type="button"
-                    class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
-                    </svg>
-                    Like
-                </button>
-                <button type="button"
-                    class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
-                    </svg>
-                    Share
-                </button>
-                <button type="button"
-                    class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
-                    </svg>
-                    Save
-                </button>
-            </div>
-        </article>
-        <article class="p-6 my-5 border shadow-lg text-base bg-white rounded-lg">
-            <footer class="flex justify-between items-center mb-2">
-                <div class="flex items-center">
-                    <p class="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold">Michael Gough</p>
-                    <p class="text-sm text-gray-600"><time pubdate datetime="2022-02-08"
-                            title="February 8th, 2022">Feb. 8, 2022</time></p>
-                </div>
-                <button type="button"
-                    class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
-                    </svg>
-                    Report
-                </button>
-            </footer>
-            <p class="text-gray-500">Very straight-to-point article. Really worth time reading. Thank you! But tools are just the
-                instruments for the UX designers. The knowledge of the design tools are as important as the
-                creation of the design strategy.</p>
-            <div class="flex items-center mt-4 space-x-4">
-                <button type="button"
-                    class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
-                    </svg>
-                    Like
-                </button>
-                <button type="button"
-                    class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
-                    </svg>
-                    Share
-                </button>
-                <button type="button"
-                    class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
-                    </svg>
-                    Save
-                </button>
-            </div>
-        </article>
-        <article class="p-6 my-5 border shadow-lg text-base bg-white rounded-lg">
-            <footer class="flex justify-between items-center mb-2">
-                <div class="flex items-center">
-                    <p class="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold">Michael Gough</p>
-                    <p class="text-sm text-gray-600"><time pubdate datetime="2022-02-08"
-                            title="February 8th, 2022">Feb. 8, 2022</time></p>
-                </div>
-                <button type="button"
-                    class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
-                    </svg>
-                    Report
-                </button>
-            </footer>
-            <p class="text-gray-500">Very straight-to-point article. Really worth time reading. Thank you! But tools are just the
-                instruments for the UX designers. The knowledge of the design tools are as important as the
-                creation of the design strategy.</p>
-            <div class="flex items-center mt-4 space-x-4">
-                <button type="button"
-                    class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
-                    </svg>
-                    Like
-                </button>
-                <button type="button"
-                    class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
-                    </svg>
-                    Share
-                </button>
-                <button type="button"
-                    class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
-                    </svg>
-                    Save
-                </button>
-            </div>
-        </article>
+        </article>';
+            }
+        }
+    }
+        ?>
     </div></section>
 </body>
 </html>
