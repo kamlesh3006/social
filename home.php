@@ -36,7 +36,7 @@
 
     <nav class="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200 shadow-lg">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-            <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <a href="./profile.php" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <img src="./logo1.png" class="h-6" alt="Musewords Logo">
             </a>
             <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
@@ -197,7 +197,7 @@
         </div>
     </nav>
 <section class="py-8 mt-6 lg:mt-2 lg:py-16 antialiased">
-    <div class="max-w-2xl mx-auto px-4">
+    <div class="max-w-2xl mx-auto px-4 my-8">
         <?php 
         $animalNames = array(
             'Luna Lynx',
@@ -310,7 +310,7 @@
                 $likeQuery = "SELECT like_id FROM likes WHERE post_id = $post_id AND user_id = $user_id";
                 $runQuery = mysqli_query($conn, $likeQuery);
                 if($username != $postusername){
-        echo '<article class="p-6 mt-10 lg:mt-5 border shadow-lg text-base bg-white rounded-lg">
+        echo '<article class="p-6 mt-5 lg:mt-5 border shadow-lg text-base bg-white rounded-lg">
             <footer class="flex justify-between items-center mb-2">
                 <div class="flex items-center">
                     <p class="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold"> '.$animalNames[array_rand($animalNames)].'</p>
@@ -318,74 +318,25 @@
                             title="February 8th, 2022">'.$date.'</time></p>
                 </div>';
             } else {
-                echo '<article class="p-6 mt-10 lg:mt-5 border shadow-lg text-base bg-white rounded-lg">
+                echo '<article class="p-6 mt-5 lg:mt-5 border shadow-lg text-base bg-white rounded-lg">
             <footer class="flex justify-between items-center mb-2">
                 <div class="flex items-center">
-                    <p class="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold"> ▲ '.$postusername.'</p>
+                    <p class="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold">  '.$postusername.'</p>
                     <p class="text-sm text-gray-600"><time pubdate datetime="2022-02-08"
                             title="February 8th, 2022">'.$date.'</time></p>
-                </div>';
+                </div>
+                <p
+                    class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
+                    ▲
+                </p>
+                ';
+                
             }
         echo '
-                <a href="like.php" type="button"
-                    class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12 9V14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M12.0001 21.41H5.94005C2.47005 21.41 1.02005 18.93 2.70005 15.9L5.82006 10.28L8.76006 5.00003C10.5401 1.79003 13.4601 1.79003 15.2401 5.00003L18.1801 10.29L21.3001 15.91C22.9801 18.94 21.5201 21.42 18.0601 21.42H12.0001V21.41Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M11.9945 17H12.0035" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-                    Report
-                </a>
             </footer>
             <p class="text-gray-500">'.$quote.'</p>
             <div class="flex items-center mt-4 space-x-4">';
-            if (mysqli_num_rows($runQuery) > 0) {
-                   
             echo '
-                <a href="like.php" type="button"
-                    class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-
-<g id="SVGRepo_bgCarrier" stroke-width="0"/>
-
-<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-
-<g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="currentColor" fill="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
-
-</svg>
-<p class="ml-1">Liked</p>
-                </a>';
-            } else {
-                echo '
-                <a href="unlike.php" type="button"
-                    class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-
-<g id="SVGRepo_bgCarrier" stroke-width="0"/>
-
-<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-
-<g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
-
-</svg>
-<p class="ml-1">Like</p>
-                </a>';
-            }
-            echo '
-                <button type="button"
-                    class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M20.5 3.5L3.5 9L10 12L17 7L12 14L15 20.5L20.5 3.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-<p class="ml-1">Share</p>
-                </button>
-                <button type="button"
-                    class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M6.75 6L7.5 5.25H16.5L17.25 6V19.3162L12 16.2051L6.75 19.3162V6ZM8.25 6.75V16.6838L12 14.4615L15.75 16.6838V6.75H8.25Z" fill="currentColor"/>
-</svg>
-                    Save
-                </button>
             </div>
         </article>';
             }
