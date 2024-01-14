@@ -277,18 +277,52 @@
                 
         echo '
             </footer>
-            <p class="text-gray-500">'.$quote.'</p>
-            <div class="flex items-center mt-4 space-x-4">
-                </a>';
+            <p class="text-gray-500">'.$quote.'</p>';
             
             echo '
+            <div class="flex items-center justify-between">
+        <div class="flex items-center mt-8 space-x-4">
+            <a href="./post.php?post_id='.$post_id.'" class="flex items-center text-xs text-gray-500 hover:underline dark:text-gray-400 font-sm">
+                <svg width="17px" height="17px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="48" height="48" fill="white" fill-opacity="0.01"/>
+    <path d="M6 6L16 15.8995" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M6 41.8995L16 32" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M42.0001 41.8995L32.1006 32" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M41.8995 6L32 15.8995" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M33 6H42V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M42 33V42H33" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M15 42H6V33" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M6 15V6H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>    
                 
-            </div>
+                <p class="ml-1">View</p>
+                </a>
+                <a href="javascript:void(0);" onclick="shareOnWhatsApp('.$post_id.')" class="flex items-center text-xs text-gray-500 hover:underline dark:text-gray-400 font-sm">
+                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20.5 3.5L3.5 9L10 12L17 7L12 14L15 20.5L20.5 3.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>    
+                
+    <p class="ml-1">Share</p>
+                </a>
+            </div> 
+            <div class="flex items-center mt-8">
+            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M10 12V17" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M14 12V17" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M4 7H20" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+            <p
+                        class="flex ml-1 items-center bg-white text-xs text-gray-500 hover:underline font-small">
+                        Delete
+                    </p></div></div>
         </article>';
             }
         }
     }
         ?>
+        <div class="mb-5"></div>
     </div></section>
 </body>
 </html>

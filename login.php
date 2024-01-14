@@ -3,6 +3,13 @@
     
     session_start();
 
+if (isset($_SESSION["user_id"])){
+  echo "<script>alert('You are already logged in.');</script>";
+  echo "<script>window.location.href = './home.php';</script>";
+
+                exit();
+}
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_POST["email"];
         $password = $_POST["password"];

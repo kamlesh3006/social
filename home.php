@@ -4,8 +4,7 @@
     session_start();
 
     if (!isset($_SESSION["user_id"])) {
-        header("Location: login.php");
-        exit();
+        
     } else{
         $username = $_SESSION["name"];
         $user_id = $_SESSION["user_id"];
@@ -307,43 +306,110 @@
                 $userQuery = "SELECT name from users WHERE user_id = $postuserid";
                 $postedquote = mysqli_fetch_assoc(mysqli_query($conn, $userQuery));
                 $postusername = $postedquote["name"];
-                $likeQuery = "SELECT like_id FROM likes WHERE post_id = $post_id AND user_id = $user_id";
-                $runQuery = mysqli_query($conn, $likeQuery);
                 if($username != $postusername){
-        echo '<article class="p-6 mt-5 lg:mt-5 border shadow-lg text-base bg-white rounded-lg">
+        echo '<article class="p-6  mx-8 mt-5 lg:mt-5 border shadow-lg text-base bg-white rounded-lg">
             <footer class="flex justify-between items-center mb-2">
-                <div class="flex items-center">
+                <div class="flex items-center cursor-default">
                     <p class="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold"> '.$animalNames[array_rand($animalNames)].'</p>
                     <p class="text-sm text-gray-600"><time pubdate datetime="2022-02-08"
                             title="February 8th, 2022">'.$date.'</time></p>
                 </div>';
+                echo '
+                </footer>
+                <p class="text-gray-500 cursor-default">'.$quote.'</p>';
+                echo '
+                <div class="flex items-center justify-between">
+        <div class="flex items-center mt-8 space-x-4">
+            <a href="./post.php?post_id='.$post_id.'" class="flex items-center text-xs text-gray-500 hover:underline dark:text-gray-400 font-sm">
+                <svg width="17px" height="17px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="48" height="48" fill="white" fill-opacity="0.01"/>
+    <path d="M6 6L16 15.8995" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M6 41.8995L16 32" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M42.0001 41.8995L32.1006 32" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M41.8995 6L32 15.8995" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M33 6H42V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M42 33V42H33" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M15 42H6V33" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M6 15V6H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>    
+                
+                <p class="ml-1">View</p>
+                </a>
+                <a href="javascript:void(0);" onclick="shareOnWhatsApp('.$post_id.')" class="flex items-center text-xs text-gray-500 hover:underline dark:text-gray-400 font-sm">
+                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20.5 3.5L3.5 9L10 12L17 7L12 14L15 20.5L20.5 3.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>    
+                
+    <p class="ml-1">Share</p>
+                </a>
+            </div> 
+            <div class="flex items-center mt-8">
+            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 9V14" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M12.0001 21.41H5.94005C2.47005 21.41 1.02005 18.93 2.70005 15.9L5.82006 10.28L8.76006 5.00003C10.5401 1.79003 13.4601 1.79003 15.2401 5.00003L18.1801 10.29L21.3001 15.91C22.9801 18.94 21.5201 21.42 18.0601 21.42H12.0001V21.41Z" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M11.9945 17H12.0035" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+            <p
+                        class="flex ml-1 items-center bg-white text-xs text-gray-500 hover:underline font-small">
+                        Report
+                    </p></div></div>
+            </article>';
             } else {
                 echo '<article class="p-6 mt-5 lg:mt-5 border shadow-lg text-base bg-white rounded-lg">
             <footer class="flex justify-between items-center mb-2">
-                <div class="flex items-center">
+                <div class="flex items-center cursor-default">
                     <p class="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold">  '.$postusername.'</p>
                     <p class="text-sm text-gray-600"><time pubdate datetime="2022-02-08"
                             title="February 8th, 2022">'.$date.'</time></p>
                 </div>
-                <p
-                    class="flex items-center bg-white text-sm text-gray-500 hover:underline font-medium">
-                    ▲
-                </p>
+                <a
+                    title="Your Post" class="flex items-center cursor-default bg-white text-xs text-gray-500 font-medium">
+                    M
+                </a>
                 ';
+                echo '
+                </footer>
+                <p class="text-gray-500 cursor-default">'.$quote.'</p>';
+                echo '
+        <div class="flex items-center mt-8 space-x-4">
+            <a href="./post.php?post_id='.$post_id.'" class="flex items-center text-xs text-gray-500 hover:underline dark:text-gray-400 font-sm">
+                <svg width="17px" height="17px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="48" height="48" fill="white" fill-opacity="0.01"/>
+    <path d="M6 6L16 15.8995" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M6 41.8995L16 32" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M42.0001 41.8995L32.1006 32" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M41.8995 6L32 15.8995" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M33 6H42V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M42 33V42H33" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M15 42H6V33" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M6 15V6H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>    
+                
+                <p class="ml-1">View</p>
+                </a>
+                <a href="javascript:void(0);" onclick="shareOnWhatsApp('.$post_id.')" class="flex items-center text-xs text-gray-500 hover:underline dark:text-gray-400 font-sm">
+                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20.5 3.5L3.5 9L10 12L17 7L12 14L15 20.5L20.5 3.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>    
+                
+    <p class="ml-1">Share</p>
+                </a>
+            </div> 
+            </article>';
                 
             }
-        echo '
-            </footer>
-            <p class="text-gray-500">'.$quote.'</p>
-            <div class="flex items-center mt-4 space-x-4">';
-            echo '
-            </div>
-        </article>';
             }
         }
         ?>
     </div>
 </section>
+<script>
+    function shareOnWhatsApp(postId) {
+        var postUrl = encodeURIComponent(window.location.origin + '/social/post.php?post_id=' + postId);
+        var whatsappMessage = "Check out this quote: " + postUrl;
+        window.open('https://wa.me/?text=' + whatsappMessage);
+    }
+</script>
 
 </body>
 </html>
