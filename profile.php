@@ -16,9 +16,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tailwind CSS Dropdowns</title>
+    <title>MuseWords - Profile</title>
     <!-- Include Tailwind CSS via CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <!-- Include Alpine.js via CDN -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
     <style>
@@ -306,6 +307,8 @@
                 </a>
             </div> 
             <div class="flex items-center mt-8">
+            <a href="./delete.php?post_id='.$post_id.'"
+                        class="flex items-center bg-white text-xs text-gray-500 hover:underline font-small">
             <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M10 12V17" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M14 12V17" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
@@ -313,10 +316,8 @@
 <path d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
-            <p
-                        class="flex ml-1 items-center bg-white text-xs text-gray-500 hover:underline font-small">
-                        Delete
-                    </p></div></div>
+                        <p class="ml-1">Delete</p>
+                    </a></div></div>
         </article>';
             }
         }
