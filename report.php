@@ -71,10 +71,10 @@ session_start();
                         <p class="inline-flex items-center mr-3 text-md text-gray-900 font-semibold">What\'s wrong?</p>
                     </div>
                 </footer>
-                <form id="reportForm" action="./confirm_report.php" method="GET">
+                <form id="reportForm" action="./confirm_report.php" method="POST">
                     <input type="hidden" name="post_id" value="'.$post_id.'">
                     <input type="hidden" name="user_id" value="'. $userid.'">
-                    <textarea id="comment" rows="3"
+                    <textarea id="comment" name="comment" rows="3"
                         class="p-2 border-0 w-full rounded-md text-sm text-gray-900 focus:ring-0 focus:outline-gray-100"
                         placeholder="Write a message..." required></textarea>
                     <div class="flex items-center mt-2 space-x-4 justify-between">
