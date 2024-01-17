@@ -73,7 +73,7 @@ session_start();
                 </footer>
                 <form id="reportForm" action="./confirm_report.php" method="GET">
                     <input type="hidden" name="post_id" value="'.$post_id.'">
-                    <input type="hidden" name="user_id" value="'. $user_id.'">
+                    <input type="hidden" name="user_id" value="'. $userid.'">
                     <textarea id="comment" rows="3"
                         class="p-2 border-0 w-full rounded-md text-sm text-gray-900 focus:ring-0 focus:outline-gray-100"
                         placeholder="Write a message..." required></textarea>

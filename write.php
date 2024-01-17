@@ -5,7 +5,7 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["comment"])) {
-        $quote = $_POST["comment"];
+        $quote = nl2br($_POST["comment"]);
         $date = new DateTime();
         $formatDate = $date->format("M. j, Y");
 

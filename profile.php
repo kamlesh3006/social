@@ -66,13 +66,13 @@
     <div x-show="showModal" id="static-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full">
         <div @click.stop class="relative p-2 w-full max-w-2xl">
             <!-- Modal content -->
-            <div @click.stop class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div @click.stop class="relative bg-white rounded-lg shadow">
                 <!-- Modal header -->
-                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
+                    <h3 class="text-xl font-semibold text-gray-900 ">
                         What's on your mind?
                     </h3>
-                    <button @click="showModal = false" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                    <button @click="showModal = false" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center ">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                         </svg>
@@ -83,14 +83,14 @@
                 <div class="py-5 md:p-5 space-y-4">
                     <div class="max-w-2xl mx-auto px-2">
                       <form class="mb-6" action="./write.php" method="POST">
-                          <div class="py-2 px-4 mb-2 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+                          <div class="py-2 px-4 mb-2 bg-white rounded-lg rounded-t-lg border border-gray-200 ">
                               <label for="comment" class="sr-only">Your comment</label>
                               <textarea id="comment" name="comment" rows="3"
-                                  class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
+                                  class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none"
                                   placeholder="Type here..." required></textarea>
                           </div>
                           <button @click="showModal = false" type="submit"
-                              class=" button1 inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white  rounded-lg focus:ring-4 focus:ring-primary-200">
+                              class=" button1 inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white  rounded-lg focus:ring-4 focus:ring-primary-200" onmouseover="this.style.backgroundColor='#2A2A2A'" onmouseout="this.style.backgroundColor='#3E3E3F'" style="background-color: #3E3E3F;">
                               Post comment
                           </button>
                       </form>
@@ -143,13 +143,13 @@
     <div x-show="showModal" id="static-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="fixed shadow-xl top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full">
         <div @click.stop class="relative p-4 w-full max-w-2xl">
             <!-- Modal content -->
-            <div @click.stop class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div @click.stop class="relative bg-white rounded-lg shadow">
                 <!-- Modal header -->
-                <div class="flex items-center justify-between p-4 md:p-5 rounded-t dark:border-gray-600">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                <div class="flex items-center justify-between p-4 md:p-5 rounded-t">
+                    <h3 class="text-xl font-semibold text-gray-900">
                         What's on your mind?
                     </h3>
-                    <button @click="showModal = false" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                    <button @click="showModal = false" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center ">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                         </svg>
@@ -160,14 +160,14 @@
                 <div class="py-5 md:p-5 space-y-4">
                     <div class="max-w-2xl mx-auto px-2">
                       <form class="mb-6" action="./write.php" method="POST">
-                          <div class="py-2 px-4 mb-2 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+                          <div class="py-2 px-4 mb-2 bg-white rounded-lg rounded-t-lg border border-gray-200">
                               <label for="comment" class="sr-only">Your comment</label>
                               <textarea id="comment" name="comment" rows="5"
                                   class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none"
                                   placeholder="Type here..." required></textarea>
                           </div>
                           <button @click="showModal = false" type="submit"
-                              class=" button1 mt-2 inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white  rounded-lg focus:ring-4 focus:ring-primary-200">
+                              class=" button1 mt-2 inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white  rounded-lg focus:ring-4 focus:ring-primary-200"  onmouseover="this.style.backgroundColor='#2A2A2A'" onmouseout="this.style.backgroundColor='#3E3E3F'"  style="background-color: #3E3E3F;">
                               Post comment
                           </button>
                       </form>
@@ -209,7 +209,7 @@
 	<div class="flex pt-4 space-x-4 align-center">
         <!-- Dark overlay -->
     <div x-show="authenticationModal" @click="authenticationModal = false" class="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-40"></div>
-		<button @click="authenticationModal = !authenticationModal"  type="button" class=" button1 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mb-2 px-4 py-2 text-center">Edit Profile</button>
+		<button @click="authenticationModal = !authenticationModal"  type="button" class=" button1 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mb-2 px-4 py-2 text-center" onmouseover="this.style.backgroundColor='#2A2A2A'" onmouseout="this.style.backgroundColor='#3E3E3F'" style="background-color: #3E3E3F;">Edit Profile</button>
         
     
     
@@ -217,13 +217,13 @@
     <div x-show="authenticationModal" id="authentication-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 right-0 left-0 z-50 flex items-center justify-center">
         <div class="relative p-4 w-full max-w-md">
             <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div class="relative bg-white rounded-lg shadow">
                 <!-- Modal header -->
-                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                    <h3 class="text-xl font-semibold text-gray-900">
                         Edit your profile
                     </h3>
-                    <button @click="authenticationModal = false" type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
+                    <button @click="authenticationModal = false" type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center " data-modal-hide="authentication-modal">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                         </svg>
@@ -235,14 +235,14 @@
     
                   <form class="space-y-4" action="update.php" method="POST">
                       <div>
-                          <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Change Password</label>
-                          <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                          <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Change Password</label>
+                          <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                       </div>
                       <div>
-                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm Password</label>
-                        <input type="password" name="Cpassword" id="Cpassword" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Confirm Password</label>
+                        <input type="password" name="Cpassword" id="Cpassword" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                     </div>
-                      <button @click="authenticationModal = false" type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                      <button @click="authenticationModal = false" type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Submit</button>
                   </form>
               </div>
           </div>
@@ -255,19 +255,20 @@
 <section class="antialiased">
     <div class="max-w-2xl mx-auto px-4">
         <article class="py-2 px-6 my-2 items-center justify-center border flex shadow-lg text-base bg-white rounded-lg">
-            <p class="font-semibold">Your Posts</p>
-        </article>
-        <?php 
-        $getQuotesQuery = "SELECT post_id, quote, date, user_id FROM posts ORDER BY datetime DESC";
+            <?php 
+        $total_quotes = 0;
+        $getQuotesQuery = "SELECT post_id, quote, date, user_id FROM posts WHERE user_id = $user_id ORDER BY datetime DESC";
         $result = mysqli_query($conn, $getQuotesQuery);
         if (mysqli_num_rows($result) > 0) {
+            echo'<p class="font-semibold">Your Posts ('.mysqli_num_rows($result).')</p>
+        </article>';
             while ($row = mysqli_fetch_assoc($result)) {
                 $post_id = $row["post_id"];
                 $quote = $row["quote"];
                 $date = $row["date"];
                 $postuser = $row["user_id"];
                 if ($user_id == $postuser) {
-                
+                    
         echo '<article class="p-6 mt-5 lg:mt-5 border shadow-lg text-base bg-white rounded-lg">
             <footer class="flex justify-between items-center mb-2">
                 <div class="flex items-center">
@@ -283,7 +284,7 @@
             echo '
             <div class="flex items-center justify-between">
         <div class="flex items-center mt-8 space-x-4">
-            <a href="./post.php?post_id='.$post_id.'" class="flex items-center text-xs text-gray-500 hover:underline dark:text-gray-400 font-sm">
+            <a href="./post.php?post_id='.$post_id.'" class="flex items-center text-xs text-gray-500 hover:underline  font-sm">
                 <svg width="17px" height="17px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect width="48" height="48" fill="white" fill-opacity="0.01"/>
     <path d="M6 6L16 15.8995" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -298,7 +299,7 @@
                 
                 <p class="ml-1">View</p>
                 </a>
-                <a href="javascript:void(0);" onclick="shareOnWhatsApp('.$post_id.')" class="flex items-center text-xs text-gray-500 hover:underline dark:text-gray-400 font-sm">
+                <a href="javascript:void(0);" onclick="shareOnWhatsApp('.$post_id.')" class="flex items-center text-xs text-gray-500 hover:underline font-sm">
                 <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M20.5 3.5L3.5 9L10 12L17 7L12 14L15 20.5L20.5 3.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>    
@@ -307,17 +308,22 @@
                 </a>
             </div> 
             <div class="flex items-center mt-8">
-            <a href="./delete.php?post_id='.$post_id.'"
-                        class="flex items-center bg-white text-xs text-gray-500 hover:underline font-small">
-            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M10 12V17" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M14 12V17" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M4 7H20" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-                        <p class="ml-1">Delete</p>
-                    </a></div></div>
+    <form method="post" action="./delete.php">
+        <input type="hidden" name="user_id" value="'.$user_id.'">
+        <input type="hidden" name="post_id" value="'.$post_id.'">
+        <button type="submit" class="flex items-center bg-white text-xs text-gray-500 hover:underline font-small">
+        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 12V17" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14 12V17" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M4 7H20" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+            <p class="ml-1">Delete</p>
+        </button>
+    </form>
+</div>
+</div>
         </article>';
             }
         }

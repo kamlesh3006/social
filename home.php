@@ -84,8 +84,8 @@
                               <div class="py-2 px-4 mb-2 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                                   <label for="comment" class="sr-only">Your comment</label>
                                   <textarea id="comment" name="comment" rows="3"
-                                      class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
-                                      placeholder="Type here..." required></textarea>
+                                      class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none resize-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
+                                      placeholder="Type here..." required style="white-space: pre-wrap;"></textarea>
                               </div>
                               <button @click="showModal = false" type="submit"
                                   class=" button1 inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white  rounded-lg focus:ring-4 focus:ring-primary-200">
@@ -161,8 +161,8 @@
                               <div class="py-2 px-4 mb-2 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                                   <label for="comment" class="sr-only">Your comment</label>
                                   <textarea id="comment" name="comment" rows="5"
-                                      class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none"
-                                      placeholder="Type here..." required></textarea>
+                                      class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none resize-none"
+                                      placeholder="Type here..." required style="white-space: pre-wrap;"></textarea>
                               </div>
                               <button @click="showModal = false" type="submit"
                                   class=" button1 mt-2 inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white  rounded-lg focus:ring-4 focus:ring-primary-200">
