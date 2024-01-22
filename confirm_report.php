@@ -1,6 +1,10 @@
 <?php
 include_once("db.php");
 session_start();
+if(!isset($_SESSION['user_id'])){
+    echo "<script>alert('You need to login for reporting a post.');</script>";
+    echo "<script>window.location.href = './home.php';</script>";
+}
 
 if (isset($_POST['post_id'])) {
     $post_id = $_POST['post_id'];

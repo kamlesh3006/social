@@ -3,9 +3,7 @@
 
     session_start();
 
-    if (!isset($_SESSION["user_id"])) {
-        
-    } else{
+    if (isset($_SESSION["user_id"])) {
         $username = $_SESSION["name"];
         $user_id = $_SESSION["user_id"];
     }
@@ -39,7 +37,13 @@
                 <img src="./logo1.png" class="h-6" alt="Musewords Logo">
             </a>
             <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <a href="logout.php" class="button1 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">LOGOUT</a>
+            
+            <?php if(isset($_SESSION['user_id'])){
+                echo '<a href="logout.php" class="button1 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">LOGOUT</a>';
+            } else {
+                echo '<a href="login.php" class="button1 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm px-6 py-2 text-center">LOGIN</a>';
+            }
+            ?>
                 <button @click="open = !open" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-sticky" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
@@ -52,6 +56,61 @@
                     <li>
                         <a href="" class="block py-1 px-1 border-b text-gray-500 rounded">Home</a>
                     </li>
+                    <?php
+                    if(!isset($_SESSION['user_id'])){
+                        echo '
+                    <li>
+                        
+                        <!-- Dark overlay -->
+        <div x-show="showModal" class="fixed top-0 left-0 w-full h-full bg-black opacity-75 z-40"></div>
+    
+        <!-- Modal toggle -->
+        <a @click="showModal = true" class="pointer-events-none opacity-50 block py-2 px-1 border-b text-gray-500 rounded hover:bg-gray-100">Write</a>
+    
+        <!-- Main modal -->
+        <div x-show="showModal" id="static-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full">
+            <div @click.stop class="relative p-2 w-full max-w-2xl">
+                <!-- Modal content -->
+                <div @click.stop class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <!-- Modal header -->
+                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                            What\'s on your mind?
+                        </h3>
+                        <button @click="showModal = false" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="py-5 md:p-5 space-y-4">
+                        <div class="max-w-2xl mx-auto px-2">
+                          <form class="mb-6" method="POST" action="write.php">
+                              <div class="py-2 px-4 mb-2 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+                                  <label for="comment" class="sr-only">Your comment</label>
+                                  <textarea id="comment" name="comment" rows="3"
+                                      class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none resize-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
+                                      placeholder="Type here..." required style="white-space: pre-wrap;"></textarea>
+                              </div>
+                              <button @click="showModal = false" type="submit"
+                                  class=" button1 inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white  rounded-lg focus:ring-4 focus:ring-primary-200">
+                                  Post comment
+                              </button>
+                          </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+                    </li>
+                    <li>
+                        <a href="./profile.php" class="pointer-events-none opacity-50 block py-1 px-1 text-gray-500 rounded hover:bg-gray-100">Profile</a>
+                    </li>';
+                    } else {
+                        echo '
                     <li>
                         
                         <!-- Dark overlay -->
@@ -68,7 +127,7 @@
                     <!-- Modal header -->
                     <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                            What's on your mind?
+                            What\'s on your mind?
                         </h3>
                         <button @click="showModal = false" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -101,7 +160,9 @@
                     </li>
                     <li>
                         <a href="./profile.php" class="block py-1 px-1 text-gray-500 rounded hover:bg-gray-100">Profile</a>
-                    </li>
+                    </li>';
+                    }
+                    ?>
                 </ul>
             </div>
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
@@ -118,7 +179,8 @@
                             
                             </svg><span class="mt-1">Home</span></a>
                     </li>
-                    <li>
+                    <?php if(isset($_SESSION['user_id'])) {
+                        echo '<li>
                         <!-- Dark overlay -->
         <div x-show="showModal" class="fixed top-0 left-0 w-full h-full bg-black opacity-75 z-40"></div>
     
@@ -145,7 +207,7 @@
                     <!-- Modal header -->
                     <div class="flex items-center justify-between p-4 md:p-5 rounded-t dark:border-gray-600">
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                            What's on your mind?
+                            What\'s on your mind?
                         </h3>
                         <button @click="showModal = false" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -190,7 +252,84 @@
                             </g>
                             
                         </svg><span class="mt-1">Profile</span></a>
+                    </li>';
+                    } else {
+                        echo '<li>
+                        <!-- Dark overlay -->
+        <div x-show="showModal" class="fixed top-0 left-0 w-full h-full bg-black opacity-75 z-40"></div>
+    
+        <!-- Modal toggle -->
+        <a @click="showModal = true" class="pointer-events-none opacity-50 flex flex-col items-center text-xs py-2 px-3 text-gray-700 rounded md:px-4 md:bg-transparent md:text-gray-500 md:hover:text-gray-900 md:p-0"><svg fill="#3E3E3F" width="20px" height="20px" viewBox="-0.5 -0.5 24 24" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-write-f">
+    
+            <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+            
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+            
+            <g id="SVGRepo_iconCarrier">
+            
+            <path d="M21.289.98l.59.59c.813.814.69 2.257-.277 3.223L9.435 16.96l-3.942 1.442c-.495.182-.977-.054-1.075-.525a.928.928 0 0 1 .045-.51l1.47-3.976L18.066 1.257c.967-.966 2.41-1.09 3.223-.276zM8.904 2.19a1 1 0 1 1 0 2h-4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4a1 1 0 0 1 2 0v4a4 4 0 0 1-4 4h-12a4 4 0 0 1-4-4v-12a4 4 0 0 1 4-4h4z"/>
+            
+            </g>
+            
+        </svg><span class="mt-1">Write</span></a>
+    
+        <!-- Main modal -->
+        <div x-show="showModal" id="static-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="fixed shadow-xl top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full">
+            <div @click.stop class="relative p-4 w-full max-w-2xl">
+                <!-- Modal content -->
+                <div @click.stop class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <!-- Modal header -->
+                    <div class="flex items-center justify-between p-4 md:p-5 rounded-t dark:border-gray-600">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                            What\'s on your mind?
+                        </h3>
+                        <button @click="showModal = false" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="py-5 md:p-5 space-y-4">
+                        <div class="max-w-2xl mx-auto px-2">
+                          <form class="mb-6" action="./write.php" method="POST">
+                              <div class="py-2 px-4 mb-2 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+                                  <label for="comment" class="sr-only">Your comment</label>
+                                  <textarea id="comment" name="comment" rows="5"
+                                      class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none resize-none"
+                                      placeholder="Type here..." required style="white-space: pre-wrap;"></textarea>
+                              </div>
+                              <button @click="showModal = false" type="submit"
+                                  class=" button1 mt-2 inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white  rounded-lg focus:ring-4 focus:ring-primary-200">
+                                  Post comment
+                              </button>
+                          </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
                     </li>
+                    <li>
+                        <a href="./profile.php" class="pointer-events-none opacity-50 flex flex-col items-center text-xs py-2 px-3 text-gray-700 rounded md:px-4 md:bg-transparent md:text-gray-500 md:hover:text-gray-900 md:p-0"><svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                            
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                            
+                            <g id="SVGRepo_iconCarrier">
+                            
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M16.5 7.063C16.5 10.258 14.57 13 12 13c-2.572 0-4.5-2.742-4.5-5.938C7.5 3.868 9.16 2 12 2s4.5 1.867 4.5 5.063zM4.102 20.142C4.487 20.6 6.145 22 12 22c5.855 0 7.512-1.4 7.898-1.857a.416.416 0 0 0 .09-.317C19.9 18.944 19.106 15 12 15s-7.9 3.944-7.989 4.826a.416.416 0 0 0 .091.317z" fill="#3E3E3F"/>
+                            
+                            </g>
+                            
+                        </svg><span class="mt-1">Profile</span></a>
+                    </li>';
+                    } ?>
+                    
+                    
                 </ul>
             </div>
         </div>
@@ -303,11 +442,117 @@
                 $quote = $row["quote"];
                 $date = $row["date"];
                 $postuserid = $row["user_id"];
-                $userQuery = "SELECT name from users WHERE user_id = $postuserid";
+                $userQuery = "SELECT name, email from users WHERE user_id = $postuserid";
                 $postedquote = mysqli_fetch_assoc(mysqli_query($conn, $userQuery));
                 $postusername = $postedquote["name"];
+                $postemail = $postedquote["email"];
+                if($_SESSION['user_role'] == 1){
+                    if($username != $postusername){
+                        echo '<article class="p-6 mx-4 lg:mx-8 mt-5 lg:mt-5 border shadow-lg text-base bg-white rounded-lg">
+                            <footer class="flex justify-between items-center mb-2">
+                                <div class="flex items-center cursor-default">
+                                    <p class="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold"> '.$postusername.'</p>
+                                    <p class="text-sm text-gray-600"><time pubdate datetime="2022-02-08"
+                                            title="February 8th, 2022">'.$postemail.' - '.$date.'</time></p>
+                                </div>';
+                                echo '
+                                </footer>
+                                <p class="text-gray-500 cursor-default">'.$quote.'</p>';
+                                echo '
+                                <div class="flex items-center justify-between">
+                        <div class="flex items-center mt-8 space-x-4">
+                            <a href="./post.php?post_id='.$post_id.'" class="flex items-center text-xs text-gray-500 hover:underline dark:text-gray-400 font-sm">
+                                <svg width="17px" height="17px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="48" height="48" fill="white" fill-opacity="0.01"/>
+                    <path d="M6 6L16 15.8995" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M6 41.8995L16 32" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M42.0001 41.8995L32.1006 32" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M41.8995 6L32 15.8995" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M33 6H42V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M42 33V42H33" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M15 42H6V33" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M6 15V6H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>    
+                                
+                                <p class="ml-1">View</p>
+                                </a>
+                                <a href="javascript:void(0);" onclick="shareOnWhatsApp('.$post_id.')" class="flex items-center text-xs text-gray-500 hover:underline dark:text-gray-400 font-sm">
+                                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.5 3.5L3.5 9L10 12L17 7L12 14L15 20.5L20.5 3.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>    
+                                
+                    <p class="ml-1">Share</p>
+                                </a>
+                            </div> 
+                            <div class="flex items-center mt-8">';
+                            if(!isset($_SESSION['user_id'])){
+                                echo'    <a href="./report.php?post_id='.$post_id.'" class=" pointer-events-none opacity-50 flex ml-1 items-center bg-white text-xs text-gray-500 hover:underline font-small">
+                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 9V14" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12.0001 21.41H5.94005C2.47005 21.41 1.02005 18.93 2.70005 15.9L5.82006 10.28L8.76006 5.00003C10.5401 1.79003 13.4601 1.79003 15.2401 5.00003L18.1801 10.29L21.3001 15.91C22.9801 18.94 21.5201 21.42 18.0601 21.42H12.0001V21.41Z" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M11.9945 17H12.0035" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                                                <p class="ml-1">Report</p>
+                                            </a></div></div>
+                                    </article>';
+                            } else {
+                                echo'    <a href="./report.php?post_id='.$post_id.'" class="flex ml-1 items-center bg-white text-xs text-gray-500 hover:underline font-small">
+                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 9V14" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12.0001 21.41H5.94005C2.47005 21.41 1.02005 18.93 2.70005 15.9L5.82006 10.28L8.76006 5.00003C10.5401 1.79003 13.4601 1.79003 15.2401 5.00003L18.1801 10.29L21.3001 15.91C22.9801 18.94 21.5201 21.42 18.0601 21.42H12.0001V21.41Z" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M11.9945 17H12.0035" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                                                <p class="ml-1">Report</p>
+                                            </a></div></div>
+                                    </article>';
+                            }
+                            } else {
+                                echo '<article class="p-6 mt-5 lg:mt-5 border shadow-lg text-base bg-white rounded-lg">
+                            <footer class="flex justify-between items-center mb-2">
+                                <div class="flex items-center cursor-default">
+                                    <p class="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold">  '.$postusername.'</p>
+                                    <p class="text-sm text-gray-600"><time pubdate datetime="2022-02-08"
+                                            title="February 8th, 2022">'.$date.'</time></p>
+                                </div>
+                                <a
+                                    title="Your Post" class="flex items-center cursor-default bg-white text-xs text-gray-500 font-medium">
+                                    M
+                                </a>
+                                ';
+                                echo '
+                                </footer>
+                                <p class="text-gray-500 cursor-default">'.$quote.'</p>';
+                                echo '
+                        <div class="flex items-center mt-8 space-x-4">
+                            <a href="./post.php?post_id='.$post_id.'" class="flex items-center text-xs text-gray-500 hover:underline dark:text-gray-400 font-sm">
+                                <svg width="17px" height="17px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="48" height="48" fill="white" fill-opacity="0.01"/>
+                    <path d="M6 6L16 15.8995" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M6 41.8995L16 32" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M42.0001 41.8995L32.1006 32" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M41.8995 6L32 15.8995" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M33 6H42V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M42 33V42H33" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M15 42H6V33" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M6 15V6H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>    
+                                
+                                <p class="ml-1">View</p>
+                                </a>
+                                <a href="javascript:void(0);" onclick="shareOnWhatsApp('.$post_id.')" class="flex items-center text-xs text-gray-500 hover:underline dark:text-gray-400 font-sm">
+                                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.5 3.5L3.5 9L10 12L17 7L12 14L15 20.5L20.5 3.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>    
+                                
+                    <p class="ml-1">Share</p>
+                                </a>
+                            </div> 
+                            </article>';
+                                
+                            }
+                } else {
                 if($username != $postusername){
-        echo '<article class="p-6  mx-8 mt-5 lg:mt-5 border shadow-lg text-base bg-white rounded-lg">
+        echo '<article class="p-6 mx-4 lg:mx-8 mt-5 lg:mt-5 border shadow-lg text-base bg-white rounded-lg">
             <footer class="flex justify-between items-center mb-2">
                 <div class="flex items-center cursor-default">
                     <p class="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold"> '.$animalNames[array_rand($animalNames)].'</p>
@@ -343,16 +588,28 @@
     <p class="ml-1">Share</p>
                 </a>
             </div> 
-            <div class="flex items-center mt-8">
-            <a href="./report.php?post_id='.$post_id.'" class="flex ml-1 items-center bg-white text-xs text-gray-500 hover:underline font-small">
-            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 9V14" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M12.0001 21.41H5.94005C2.47005 21.41 1.02005 18.93 2.70005 15.9L5.82006 10.28L8.76006 5.00003C10.5401 1.79003 13.4601 1.79003 15.2401 5.00003L18.1801 10.29L21.3001 15.91C22.9801 18.94 21.5201 21.42 18.0601 21.42H12.0001V21.41Z" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M11.9945 17H12.0035" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-                        <p class="ml-1">Report</p>
-                    </a></div></div>
-            </article>';
+            <div class="flex items-center mt-8">';
+            if(!isset($_SESSION['user_id'])){
+                echo'    <a href="./report.php?post_id='.$post_id.'" class=" pointer-events-none opacity-50 flex ml-1 items-center bg-white text-xs text-gray-500 hover:underline font-small">
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 9V14" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12.0001 21.41H5.94005C2.47005 21.41 1.02005 18.93 2.70005 15.9L5.82006 10.28L8.76006 5.00003C10.5401 1.79003 13.4601 1.79003 15.2401 5.00003L18.1801 10.29L21.3001 15.91C22.9801 18.94 21.5201 21.42 18.0601 21.42H12.0001V21.41Z" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M11.9945 17H12.0035" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+                                <p class="ml-1">Report</p>
+                            </a></div></div>
+                    </article>';
+            } else {
+                echo'    <a href="./report.php?post_id='.$post_id.'" class="flex ml-1 items-center bg-white text-xs text-gray-500 hover:underline font-small">
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 9V14" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12.0001 21.41H5.94005C2.47005 21.41 1.02005 18.93 2.70005 15.9L5.82006 10.28L8.76006 5.00003C10.5401 1.79003 13.4601 1.79003 15.2401 5.00003L18.1801 10.29L21.3001 15.91C22.9801 18.94 21.5201 21.42 18.0601 21.42H12.0001V21.41Z" stroke="#6B7280" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M11.9945 17H12.0035" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+                                <p class="ml-1">Report</p>
+                            </a></div></div>
+                    </article>';
+            }
             } else {
                 echo '<article class="p-6 mt-5 lg:mt-5 border shadow-lg text-base bg-white rounded-lg">
             <footer class="flex justify-between items-center mb-2">
@@ -398,7 +655,7 @@
                 
             }
             }
-        }
+        }}
         ?>
     </div>
 </section>

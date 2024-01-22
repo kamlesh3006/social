@@ -14,7 +14,7 @@ if (isset($_SESSION["user_id"])){
         $email = $_POST["email"];
         $password = $_POST["password"];
 
-        $getPasswordQuery = "SELECT user_id, name, password FROM users WHERE email = '$email'";
+        $getPasswordQuery = "SELECT user_id, name, password, user_role FROM users WHERE email = '$email'";
         $result = mysqli_query($conn, $getPasswordQuery);
 
         if (mysqli_num_rows($result) > 0) {
@@ -22,11 +22,12 @@ if (isset($_SESSION["user_id"])){
             $user_id = $row["user_id"];
             $username = $row["name"];
             $hashedPassword = $row["password"];
-
+            $user_role = $row["user_role"];
             if (password_verify($password, $hashedPassword)) {
                 $_SESSION["user_id"] = $user_id;
                 $_SESSION["email"] = $email;
                 $_SESSION["name"] = $username;
+                $_SESSION["user_role"] = $user_role;
                 header("Location: home.php");
                 exit();
             } else {
@@ -67,7 +68,7 @@ if (isset($_SESSION["user_id"])){
   </a>
 </nav>
 
-<section class="bg-gray-50">
+<section class="bg-gray-50 mt-24 md:mt-0">
   <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
     <div class="w-full bg-white rounded-lg shadow-lg md:mt-0 sm:max-w-md xl:p-0">
       <div class="p-6 space-y-4 md:space-y-6 sm:p-8">

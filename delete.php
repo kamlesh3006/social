@@ -1,6 +1,10 @@
 <?php
 include_once("db.php");
 session_start();
+if(!isset($_SESSION['user_id'])){
+    echo "<script>alert('You need to login to be able to delete your post.');</script>";
+    echo "<script>window.location.href = './login.php';</script>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

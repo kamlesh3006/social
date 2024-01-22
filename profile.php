@@ -3,9 +3,9 @@
 
     session_start();
 
-    if (!isset($_SESSION["user_id"])) {
-        header("Location: login.php");
-        exit();
+    if(!isset($_SESSION['user_id'])){
+        echo "<script>alert('You need to login to be able to view your profile.');</script>";
+        echo "<script>window.location.href = './login.php';</script>";
     } else{
         $username = $_SESSION["name"];
         $user_id = $_SESSION["user_id"];
@@ -206,7 +206,7 @@
                 Musewords is designed for users to share inspirational, thought-provoking quotes without revealing their identity. We're committed to fostering a positive and respectful environment where users can freely express themselves. However, with this freedom comes responsibility."?></p>
 		</div>
 	</div>
-	<div class="flex pt-4 space-x-4 align-center">
+	<div class="flex pt-4 space-x-4 -mx-4 align-center">
         <!-- Dark overlay -->
     <div x-show="authenticationModal" @click="authenticationModal = false" class="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-40"></div>
 		<button @click="authenticationModal = !authenticationModal"  type="button" class=" button1 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mb-2 px-4 py-2 text-center" onmouseover="this.style.backgroundColor='#2A2A2A'" onmouseout="this.style.backgroundColor='#3E3E3F'" style="background-color: #3E3E3F;">Edit Profile</button>
@@ -331,5 +331,12 @@
         ?>
         <div class="mb-5"></div>
     </div></section>
+    <script>
+    function shareOnWhatsApp(postId) {
+        var postUrl = encodeURIComponent(window.location.origin + '/social/post.php?post_id=' + postId);
+        var whatsappMessage = "Check out this quote: " + postUrl;
+        window.open('https://wa.me/?text=' + whatsappMessage);
+    }
+</script>
 </body>
 </html>
