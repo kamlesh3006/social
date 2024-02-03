@@ -4,54 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Social Media App</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./landing.css">
     <style>
         /* Additional styles if needed */
     </style>
 </head>
-<body class="bg-gray-100">
+<body>
 
-    <header class="bg-white border-b border-gray-300 shadow-lg p-4">
-        <h1 class="text-3xl font-bold text-gray-800">Welcome to MuseWords</h1>
-        <p class="mt-2 text-gray-600">Express Yourself Anonymously</p>
-    </header>
+    <div class="diagonal-partition"></div>
 
-    <section class="py-8 mt-6 lg:mt-2 lg:py-16 antialiased">
-        <div class="max-w-2xl mx-auto px-4">
-
-            <div class="mb-8">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Are you passionate about sharing your favorite quotes, thoughts, and inspirations?</h2>
-                <p class="text-gray-600">Welcome to our platform where you can do it all without revealing your identity. We understand the value of privacy, and our platform is designed to provide you with a safe and anonymous space to express yourself.</p>
+    <div class="flex flex-col md:flex-row md:pt-6 xl:pt-10">
+        <div class="md:w-1/2 pt-0 md:pr-20 md:text-sm lg:text-base xl:pt-14">
+            <div class="heading text-center">
+                WELCOME TO <br>
+                <img src="./logo1.png" alt="Logo" class=" flex justify-center mx-auto w-[29rem] mt-3">
+                <span class="text-xs text-gray-500 font-medium">- </span><span class="text-xs text-gray-500 font-normal underline">Where the Power of Words Meets the Beauty of Anonymity!</span>
             </div>
-
-            <div class="mb-8">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Key Features</h2>
-                <ul class="list-disc list-inside text-gray-600">
-                    <li>Anonymous Posting: Share your deepest thoughts without the need to disclose your identity.</li>
-                    <li>Privacy Focus: We prioritize your privacy and ensure that your personal information remains secure.</li>
-                </ul>
+            <div class="intro text-center text-gray-500 mt-2 lg:mt-1 font-normal">
+                <p>At MuseWords, we believe in the transformative power of words and the liberating beauty of anonymity. Our platform offers a distinctive haven for individuals seeking to express their innermost thoughts, feelings, and inspiration through profound quotes, all while safeguarding their identity.</p>
             </div>
-
-            <div class="mb-8">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">How It Works</h2>
-                <ol class="list-decimal list-inside text-gray-600">
-                    <li><strong>Write:</strong> Craft your favorite quotes, thoughts, or inspirations.</li>
-                    <li><strong>Post Anonymously:</strong> Share your creations without the worry of revealing who you are.</li>
-                </ol>
+            <div class="join mt-6 lg:mt-5 flex justify-center mx-auto md:mr-10 lg:mr-20 text-start">
+                <a href="./signup.php" class='bg-gray-700 rounded-full md:ml-14 lg:ml-24 text-white py-2 px-4 transition duration-300 hover:bg-gray-800 hover:scale-110 hover:translate-y-1 text-left'>Create Account</a>
             </div>
-
-            <div class="mb-8">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Join Our Community</h2>
-                <p class="text-gray-600">Connect with like-minded individuals, explore a world of anonymous expression, and become part of our community dedicated to sharing thoughts freely.</p>
-            </div>
-
-            <div>
-                <p class="text-gray-600">Ready to get started? Join us and start expressing yourself anonymously today!</p>
-                <!-- Add a registration or sign-up button/link here if needed -->
-            </div>
-
         </div>
-    </section>
+        <div class="md:w-1/2 flex mt-24 mr-24 md:mt-36 lg:mt-24 sm:mr-12 xl:mr-24 justify-end relative">
+            <a href="./home.php"><img src="./ss.png" title="Go to Home" alt="Screenshot" class="ss transition duration-300 hover:scale-110 absolute right-0 top-0 rounded-lg w-[40rem]  -rotate-6"></a>
+            <a href="./login.php"><img src="./ss-login.png" title="Go to Login" alt="Screenshot" class="ss transition duration-300 hover:scale-110 absolute right-20 top-20 rounded-lg w-[39rem]  -rotate-3"></a>
+        </div>
+    </div> 
+    <div class="flex flex-col absolute w-full px-20 bottom-4 left-1/2 transform -translate-x-1/2">
+        <div class="text-gray-500 z-10 shadow justify-end hidden xl:px-4 xl:ml-12 lg:px-10 lg:block">In this vibrant community, you have the <strong>freedom to express yourself without the fear of judgment or exposure</strong>. Immerse yourself in a diverse range of profound quotes from fellow users, finding inspiration and connection in every expression.
+
+            Embark on a journey of self-discovery and connection in a space designed for genuine and anonymous expression.<strong> MuseWords is not just a platform; it's a celebration of individuality and the beauty of words.</strong>
+             A vibrant community where self-expression knows no bounds. <span class="hidden xl:block">Dive into a rich tapestry of profound quotes, forging connections and finding inspiration in every shared sentiment.<strong> MuseWords is more than a platform; it's a sanctuary for genuine and anonymous expression—a celebration of individuality and the eloquence of words.</strong></span></div>
+        <p class="text-gray-300 font-normal my-2 transform text-end">Already a member? <a href="./login.php" class="font-semibold underline underline-offset-2">Login here</a></p>
+        <p class="text-gray-300 font-normal my-2 transform text-end">Just want to explore? <a href="./home.php" class="font-semibold underline underline-offset-2">Click here</a></p>
+    </div>
 
 </body>
 </html>
