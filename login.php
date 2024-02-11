@@ -5,6 +5,9 @@
 
 if (isset($_SESSION["user_id"])){
   echo "<script>alert('You are already logged in.');</script>";
+  if($_SESSION["user_role"] == 2){
+    echo "<script>window.location.href = './admin.php';</script>";
+  }
   echo "<script>window.location.href = './home.php';</script>";
 
                 exit();
@@ -23,6 +26,14 @@ if (isset($_SESSION["user_id"])){
             $username = $row["name"];
             $hashedPassword = $row["password"];
             $user_role = $row["user_role"];
+            if($user_role == 2){
+              $_SESSION["user_id"] = $user_id;
+              $_SESSION["email"] = $email;
+              $_SESSION["name"] = $username;
+              $_SESSION["user_role"] = $user_role;
+              header("Location: admin.php");
+                exit();
+            }
             if (password_verify($password, $hashedPassword)) {
                 $_SESSION["user_id"] = $user_id;
                 $_SESSION["email"] = $email;
@@ -93,7 +104,7 @@ if (isset($_SESSION["user_id"])){
                 <label for="remember" class="text-gray-500">Remember me</label>
               </div>
             </div>
-            <a href="#" class="text-sm font-medium text-primary-600 hover:underline">Forgot password?</a>
+            <a href="./forgot_password.php" class="text-sm font-medium text-primary-600 hover:underline">Forgot password?</a>
           </div>
           <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Sign in</button>
           <p class="text-sm font-light text-gray-500">

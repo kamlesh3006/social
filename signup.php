@@ -6,6 +6,7 @@
         $email = $_POST["email"];
         $password = $_POST["password"];
         $hashPassword = password_hash($password, PASSWORD_DEFAULT);
+        $sec = $_POST["sec"];
 
         $checkEmailQuery = "SELECT * FROM users WHERE email = '$email'";
         $result = mysqli_query($conn, $checkEmailQuery);
@@ -13,12 +14,13 @@
         if (mysqli_num_rows($result) > 0) {
             echo "<script>alert('Email already registered. Please use a different email.')</script>";
         } else {
-            $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $username, $email, $hashPassword);
+            $stmt = $conn->prepare("INSERT INTO users (name, email, password, sec) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssss", $username, $email, $hashPassword, $sec);
             $stmt->execute();
             $stmt->close();
             mysqli_close($conn);
             echo "<script>alert('Registration successful!')</script>";
+            echo "<script>window.location.href = './login.php';</script>";
         }
     }
 ?>
@@ -72,6 +74,11 @@
             <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Password</label>
             <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1 px-2 md:p-2.5" required="">
           </div>
+          <div>
+            <label for="sec" class="block mb-2 text-sm font-medium text-gray-900">What is your favourite food?</label>
+            <input type="text" name="sec" id="sec" placeholder="This will be used to recover your password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1 px-2 md:p-2.5" required="">
+        </div>
+
           <div class="flex items-start">
             <div class="flex items-center h-5">
               <input id="terms" aria-describedby="terms" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300" required="">
