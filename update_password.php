@@ -1,120 +1,88 @@
 <?php
-    include_once("db.php");
-    
-    session_start();
+include("db.php");
 
-if (isset($_SESSION["user_id"])){
-  echo "<script>alert('You are already logged in.');</script>";
-  if($_SESSION["user_role"] == 2){
-    echo "<script>window.location.href = './admin.php';</script>";
-  }
-  echo "<script>window.location.href = './home.php';</script>";
+session_start();
 
-                exit();
-}
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $email = $_POST["email"];
+if(isset($_SESSION['reset_email'])) {
+    if(isset($_POST["password"]) && isset($_POST["confirm_password"])) {
+        // Retrieve the new password and confirm password from the form
         $password = $_POST["password"];
+        $confirm_password = $_POST["confirm_password"];
 
-        $getPasswordQuery = "SELECT user_id, name, password, user_role FROM users WHERE email = '$email'";
-        $result = mysqli_query($conn, $getPasswordQuery);
+        // Validate if passwords match
+        if($password !== $confirm_password) {
+            echo "<script>alert('Passwords do not match!')</script>";
+        } else {
+            // Hash the new password
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        if (mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-            $user_id = $row["user_id"];
-            $username = $row["name"];
-            $hashedPassword = $row["password"];
-            $user_role = $row["user_role"];
-            if($user_role == 2){
-              $_SESSION["user_id"] = $user_id;
-              $_SESSION["email"] = $email;
-              $_SESSION["name"] = $username;
-              $_SESSION["user_role"] = $user_role;
-              header("Location: admin.php");
-                exit();
-            }
-            if (password_verify($password, $hashedPassword)) {
-                $_SESSION["user_id"] = $user_id;
-                $_SESSION["email"] = $email;
-                $_SESSION["name"] = $username;
-                $_SESSION["user_role"] = $user_role;
-                header("Location: home.php");
+            // Retrieve the email from the session
+            $email = $_SESSION["reset_email"];
+
+            // Update the password in the database
+            $update_sql = "UPDATE users SET password='$hashed_password' WHERE email='$email'";
+            $update_result = mysqli_query($conn, $update_sql);
+
+            if($update_result) {
+                echo "<script>alert('Password updated successfully!')</script>";
+                echo"<script>window.location.href='./login.php'</script>";
                 exit();
             } else {
-                echo "<script>alert('Incorrect password. Please try again.')</script>";
+                echo "<script>alert('Failed to update password.')</script>";
+                echo"<script>window.location.href='./login.php'</script>";
+                exit();
             }
-        } else {
-            echo "<script>alert('Email not found. Please register or check your credentials.')</script>";
         }
     }
+} else {
+    // Redirect the user back to the forgot password page if session email is not set
+    header("Location: forgot_password.php");
+    exit();
+}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MuseWords - Login</title>
-    <!-- Include Tailwind CSS via CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Include Alpine.js via CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+    <title>MuseWords - Update Password</title>
     <style>
         button {
-            background-color: #3E3E3F;
+            background-color: rgb(62, 62, 63) !important;
+            transition: background-color 0.3s ease;
         }
-
         button:hover {
-            background-color: rgb(42, 42, 42);
+            background-color: rgb(42, 42, 42) !important;
             cursor: pointer;
         }
+        .hidden {
+            display: none;
+        }
+        .content {
+            flex: 1;
+        }
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body x-data="{ open: false, showModal: false }" x-bind:class="{ 'overflow-hidden': showModal }" style="background-color: #FAFBFB; min-height: 100vh;">
-
+<body style="background-color: #FAFBFB; min-height: 100vh; display: flex; flex-direction: column;">
+<div class="content">
 <nav class="fixed top-0 w-full bg-white p-4 flex justify-center items-center shadow-lg">
   <a class="navbar-brand" href="./index.html">
     <img src="./logo1.png" alt="Logo" width="40%" height="auto">
   </a>
 </nav>
 
-<section class="bg-gray-50 mt-24 md:mt-0">
-  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-    <div class="w-full bg-white rounded-lg shadow-lg md:mt-0 sm:max-w-md xl:p-0">
-      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
-          Sign in to your account
-        </h1>
-        <form class="space-y-4 md:space-y-6" action="" method="POST">
-          <div>
-            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Your email</label>
-            <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="name@company.com" required="">
-          </div>
-          <div>
-            <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Password</label>
-            <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required="">
-          </div>
-          <div class="flex items-center justify-between">
-            <div class="flex items-start">
-              <div class="flex items-center h-5">
-                <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300">
-              </div>
-              <div class="ml-3 text-sm">
-                <label for="remember" class="text-gray-500">Remember me</label>
-              </div>
-            </div>
-            <a href="./forgot_password.php" class="text-sm font-medium text-primary-600 hover:underline">Forgot password?</a>
-          </div>
-          <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Sign in</button>
-          <p class="text-sm font-light text-gray-500">
-            Don’t have an account yet? <a href="./signup.php" class="font-medium text-primary-600 hover:underline">Sign up</a>
-          </p>
-        </form>
-      </div>
+<div class=" mt-56 bg-white flex flex-col border rounded-lg w-full md:w-1/2 lg:w-1/3 justify-center items-center m-auto">
+    <h2 class="text-2xl text-gray-800 font-semibold my-12">Change Password</h2>
+    <form class="w-2/3 border-t flex flex-col justify-center items-center" method="post" action="">
+        <label class="mt-4 mb-2 text-gray-600 font-semibold" for="password">New Password : </label>
+        <input class="border w-full rounded py-1 px-2 mt-2 focus:outline " placeholder="example@email.com" type="password" id="password" name="password" required>
+        <label class="mt-4 mb-2 text-gray-600 font-semibold" for="confirm_password">Confirm New Password : </label>
+        <input class="border w-full rounded py-1 px-2 mt-2 focus:outline " placeholder="Answer is case sensitive." type="password" id="confirm_password" name="confirm_password" required>
+        <button type="submit" class="w-1/2 my-4 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Submit</button>
+    </form>
+</div>
     </div>
-  </div>
-</section>
 <footer class="text-gray-600 body-font">
   <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
     <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
@@ -158,6 +126,8 @@ if (isset($_SESSION["user_id"])){
     </span>
   </div>
 </footer>
-
 </body>
 </html>
+<?php
+$conn->close();
+?>
